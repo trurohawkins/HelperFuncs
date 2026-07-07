@@ -1,5 +1,8 @@
 TARGET = lib/libHelper.a
 
+LIBDIR = lib/
+INCDIR = include/
+
 DEV_CFLAGS = -g -fsanitize=address,undefined -fno-omit-frame-pointer
 DEV_LDFLAGS = -fsanitize=address,undefined
 
@@ -24,11 +27,11 @@ prod: CFLAGS += $(PROD_CFLAGS)
 prod: LDFLAGS += $(PROD_LDFLAGS)
 prod: $(TARGET)
 
-$(TARGET): helpFuncs.o binaryWriter.o list.o include/helper.h
+$(TARGET): helpFuncs.o binaryWriter.o list.o include/helper.h | $(LIBDIR)
 	@echo -e "\n"
 	ar rs $(TARGET) helpFuncs.o binaryWriter.o list.o
 
-include/helper.h: helpFuncs.o
+include/helper.h: helpFuncs.o | $(INCDIR)
 	@echo -e "\nGenerating portable $@"
 	@echo "#pragma once" > $@
 	@cat helpFuncs.h list.h intList.h sortedList.h binaryWriter.h atomicQueue.h >> $@
@@ -41,6 +44,12 @@ binaryWriter.o: binaryWriter.h binaryWriter.c
 
 list.o:list.c list.h  sortedList.h sortedList.c
 	gcc $(CFLAGS) -c list.c -o $@
+
+$(LIBDIR):
+	mkdir -p $(LIBDIR)
+
+$(INCDIR):
+	mkdir -p $(INCDIR)
 
 # tools
 clean:
