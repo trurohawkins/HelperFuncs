@@ -1,4 +1,4 @@
-TARGET = libHelper.a
+TARGET = lib/libHelper.a
 
 DEV_CFLAGS = -g -fsanitize=address,undefined -fno-omit-frame-pointer
 DEV_LDFLAGS = -fsanitize=address,undefined
@@ -24,14 +24,14 @@ prod: CFLAGS += $(PROD_CFLAGS)
 prod: LDFLAGS += $(PROD_LDFLAGS)
 prod: $(TARGET)
 
-libHelper.a: helpFuncs.o binaryWriter.o list.o helper.h
-	@echo "making helper library"
-	ar rs libHelper.a helpFuncs.o binaryWriter.o list.o
+$(TARGET): helpFuncs.o binaryWriter.o list.o include/helper.h
+	@echo -e "\n"
+	ar rs $(TARGET) helpFuncs.o binaryWriter.o list.o
 
-helper.h: helpFuncs.o
-	@echo "Generating portable helper.h"
-	@echo "#pragma once" > helper.h
-	@cat helpFuncs.h list.h intList.h sortedList.h binaryWriter.h atomicQueue.h >> helper.h
+include/helper.h: helpFuncs.o
+	@echo -e "\nGenerating portable $@"
+	@echo "#pragma once" > $@
+	@cat helpFuncs.h list.h intList.h sortedList.h binaryWriter.h atomicQueue.h >> $@
 
 helpFuncs.o: helpFuncs.c helpFuncs.h
 	gcc $(CFLAGS) -c helpFuncs.c -o $@
@@ -47,7 +47,7 @@ clean:
 	rm -f *.o *.d
 
 fclean:
-	rm -f *.o *.d helper.h $(TARGET) 
+	rm -f *.o *.d include/helper.h $(TARGET) 
 
 # merges .d files into dependency graph
 -include *.d
