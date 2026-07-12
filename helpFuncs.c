@@ -8,7 +8,6 @@ float *angles;
 const float epsilon = 1e-6f;
 
 void initDirections() {
-	printf("initilaizing dirs");
 	dirs = (int**)calloc(4, sizeof(int*));
 	for (int i = 0; i < 4; i++) {
 		dirs[i] = (int*)calloc(2, sizeof(int));
@@ -113,7 +112,7 @@ int xyToDir4(int *xy) {
 			return i;
 		}
 	}
-	printf("(%i, %i), did not mmatch a cardinal direction\n", xy[0], xy[1]);
+	//printf("(%i, %i), did not mmatch a cardinal direction\n", xy[0], xy[1]);
 	return -1;
 }
 
@@ -254,13 +253,13 @@ char *fileToString(char *txt)
 	if (fptr != NULL) {
 		fseek(fptr, 0, SEEK_END);
 		long fSize = ftell(fptr);
-		printf("file size: %i\n", fSize);
+		//printf("file size: %i\n", fSize);
 		fseek(fptr, 0, SEEK_SET);
 		t = (char*)malloc(fSize * sizeof(char));
 		while ((c = fgetc(fptr)) != EOF) {
 			t[n++] = (char)c;
 		}
-		printf("wrote into: %i\n", n);
+		//printf("wrote into: %i\n", n);
 		t[fSize-1] = '\0';
 		fseek(fptr, 0, SEEK_SET);
 		fclose(fptr);

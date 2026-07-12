@@ -61,7 +61,7 @@ void *indexList(linkedList **head, int index) {
 		}
 	}
 	if (index > 0) {
-		printf("index %i out of range for list\n", originalIndex);
+		//printf("index %i out of range for list\n", originalIndex);
 	}
 	return NULL;
 }

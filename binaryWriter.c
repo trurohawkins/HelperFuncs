@@ -11,7 +11,7 @@ bool writeBinaryInt(char *file, int *val, int num) {
 			return true;
 		}
 	}
-	printf("unable to write %i to file %s\n", val, file);
+	//printf("unable to write %i to file %s\n", val, file);
 	return false;
 }
 
