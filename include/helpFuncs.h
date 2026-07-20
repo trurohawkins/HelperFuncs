@@ -8,6 +8,7 @@
 #include<string.h>
 #include <math.h>
 #include <limits.h>
+#include <stdint.h>
 //#include "file.h"
 
 void initDirections();
@@ -42,6 +43,7 @@ void printArray(int**, int, int);
 bool compareColor(void *c1, void *c2);
 int decPlace(int d);
 float intToFrac(int i, int pow);
+uint64_t nowMS();
 
 void testFunc();
 #endif

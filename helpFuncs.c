@@ -324,6 +324,12 @@ float intToFrac(int i, int pow) {
 	return (float)res / pow;
 }
 
+uint64_t nowMS() {
+	struct timespec ts;
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return (uint64_t)(ts.tv_sec * 1000ULL + ts.tv_nsec / 1000000ULL);
+}
+
 void testFunc() {
 	printf("caca poo poo poo\n");
 }
