@@ -43,6 +43,7 @@ void printArray(int**, int, int);
 bool compareColor(void *c1, void *c2);
 int decPlace(int d);
 float intToFrac(int i, int pow);
+int divideUp(int num, int den);
 uint64_t nowMS();
 
 void testFunc();

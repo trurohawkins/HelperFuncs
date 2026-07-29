@@ -324,6 +324,10 @@ float intToFrac(int i, int pow) {
 	return (float)res / pow;
 }
 
+int divideUp(int num, int den) {
+	return (num + den - 1) / den;
+}
+
 uint64_t nowMS() {
 	struct timespec ts;
 	clock_gettime(CLOCK_MONOTONIC, &ts);
