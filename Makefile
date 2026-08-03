@@ -40,6 +40,9 @@ binaryWriter.o: $(INCDIR)binaryWriter.h binaryWriter.c
 list.o:list.c $(INCDIR)list.h  $(INCDIR)sortedList.h sortedList.c
 	gcc $(CFLAGS) -c list.c -o $@
 
+graph.o: graph.c $(INCDIR)graph.h
+	gcc $(CFLAGS) -c graph.c -o $@
+
 $(LIBDIR):
 	mkdir -p $(LIBDIR)
 
