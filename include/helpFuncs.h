@@ -37,6 +37,7 @@ float lerp(float a, float b, float t);
 float slerp(float a, float b, float t);
 //int abs(int);
 float distance(float x1, float y1, float x2, float y2);
+int cardinalDistane(int x1, int y1, int x2, int y2);
 char *fileToString(char *txt);
 bool strCompare(char *str1, char *str2);
 void printArray(int**, int, int);

@@ -167,6 +167,10 @@ float distance(float x1, float y1, float x2, float y2) {
 	return d;
 }
 
+int cardinalDistane(int x1, int y1, int x2, int y2) {
+	return abs(x2 - x1) + abs(y2 - y1);
+}
+
 int clamp(int val, int min, int max) {
 	if (min < max) {
 		if (val < min) {

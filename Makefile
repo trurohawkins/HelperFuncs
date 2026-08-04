@@ -27,9 +27,9 @@ prod: CFLAGS += $(PROD_CFLAGS)
 prod: LDFLAGS += $(PROD_LDFLAGS)
 prod: $(TARGET)
 
-$(TARGET): helpFuncs.o binaryWriter.o list.o include/helper.h | $(LIBDIR)
+$(TARGET): helpFuncs.o binaryWriter.o list.o graph.o include/helper.h | $(LIBDIR)
 	@echo -e "\n"
-	ar rs $(TARGET) helpFuncs.o binaryWriter.o list.o
+	ar rs $(TARGET) helpFuncs.o binaryWriter.o list.o graph.o
 
 helpFuncs.o: helpFuncs.c $(INCDIR)helpFuncs.h
 	gcc $(CFLAGS) -c helpFuncs.c -o $@
