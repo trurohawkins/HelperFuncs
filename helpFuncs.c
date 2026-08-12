@@ -167,6 +167,10 @@ float distance(float x1, float y1, float x2, float y2) {
 	return d;
 }
 
+int manhattanDistance(int x1, int y1, int x2, int y2) {
+	return abs(x1 - x2) + abs(y1 - y2);
+}
+
 int cardinalDistane(int x1, int y1, int x2, int y2) {
 	return abs(x2 - x1) + abs(y2 - y1);
 }
