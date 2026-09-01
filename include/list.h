@@ -24,6 +24,7 @@ bool isInListInt(linkedList **head, int item);
 void *indexList(linkedList **head, int index);
 void *removeFromList(linkedList **head, void *item);
 bool checkAndDelete(linkedList **head, bool (*chk)(void*), void (*del)(void*));
+bool deleteFromListCompare(linkedList **head, void *item, bool (*cmp)(void*, void*));
 void *removeFromListCheck(linkedList **head, bool (*chk)(void*));
 void *removeFromListInt(linkedList **head, int item);
 void checkAndRemove(linkedList **head, bool (*chk)(void*));

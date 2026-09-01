@@ -222,6 +222,36 @@ void *removeFromListCheck(linkedList **head, bool (*chk)(void*)) {
 	return data;
 }
 
+bool deleteFromListCompare(linkedList **head, void *item, bool (*cmp)(void*, void*)) {
+	if ((*head) != NULL) {
+		if ((*head)->data != NULL) {
+			if (cmp((*head)->data, item)) {
+				//printf("removed head\n");
+				linkedList *oh = *head;
+				(*head) = (*head)->next;
+				free(oh->data);
+				free(oh);
+				return true;
+			} else {
+				linkedList *tmp = (*head)->next;
+				linkedList *pre = *head;
+				while (tmp != 0) {
+					if (cmp(tmp->data, item)) {
+						pre->next = tmp->next;
+						free(tmp->data);
+						free(tmp);
+						return true;
+					} else {
+						tmp = tmp->next;
+					}
+					pre = pre->next;
+				}
+			}
+		}
+	}
+	return false;
+}
+
 bool checkAndDelete(linkedList **head, bool (*chk)(void*), void (*del)(void*)) {
 	if ((*head) != NULL) {
 		//printf("checking and deleting for %p\n", *head);
