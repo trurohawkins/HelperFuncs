@@ -47,6 +47,7 @@ int decPlace(int d);
 float intToFrac(int i, int pow);
 int divideUp(int num, int den);
 uint64_t nowMS();
+uint64_t nowUS();
 
 void testFunc();
 #endif

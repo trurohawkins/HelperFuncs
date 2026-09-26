@@ -6,3 +6,4 @@
 #include "list.h"
 #include "sortedList.h"
 #include "graph.h"
+#include "heap.h"

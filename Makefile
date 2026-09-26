@@ -1,7 +1,8 @@
-TARGET = lib/libHelper.a
+TARGET = helpTest
 
 LIBDIR = lib/
 INCDIR = include/
+SRCDIR = src/
 
 DEV_CFLAGS = -g -fsanitize=address,undefined -fno-omit-frame-pointer
 DEV_LDFLAGS = -fsanitize=address,undefined
@@ -12,7 +13,7 @@ TSAN_LDFLAGS = -fsanitize=thread
 PROD_CFLAGS = -O2
 PROD_LDFLAGS =
 
-CFLAGS = -MMD -MP -I$(INCDIR) 
+CFLAGS = -MMD -MP -I$(INCDIR) -I$(SRCDIR)
 LDFLAGS =
 
 dev: CFLAGS += $(DEV_CFLAGS)
@@ -27,21 +28,26 @@ prod: CFLAGS += $(PROD_CFLAGS)
 prod: LDFLAGS += $(PROD_LDFLAGS)
 prod: $(TARGET)
 
-$(TARGET): helpFuncs.o binaryWriter.o list.o graph.o include/helper.h | $(LIBDIR)
-	@echo -e "\n"
-	ar rs $(TARGET) helpFuncs.o binaryWriter.o list.o graph.o
+$(TARGET): $(LIBDIR)libHelper.a main.o include/helper.h 
+	gcc main.o -o $@ $(LDFLAGS) $(LIBDIR)libHelper.a -lm
 
-helpFuncs.o: helpFuncs.c $(INCDIR)helpFuncs.h
-	gcc $(CFLAGS) -c helpFuncs.c -o $@
+$(LIBDIR)libHelper.a: helpFuncs.o binaryWriter.o list.o graph.o heap.o | $(LIBDIR)
+	ar rs $@ $^
 
-binaryWriter.o: $(INCDIR)binaryWriter.h binaryWriter.c
-	gcc $(CFLAGS) -c binaryWriter.c -o $@
+helpFuncs.o: $(SRCDIR)helpFuncs.c $(INCDIR)helpFuncs.h
+	gcc $(CFLAGS) -c $(SRCDIR)helpFuncs.c -o $@
 
-list.o:list.c $(INCDIR)list.h  $(INCDIR)sortedList.h sortedList.c
-	gcc $(CFLAGS) -c list.c -o $@
+binaryWriter.o: $(INCDIR)binaryWriter.h $(SRCDIR)binaryWriter.c
+	gcc $(CFLAGS) -c $(SRCDIR)binaryWriter.c -o $@
 
-graph.o: graph.c $(INCDIR)graph.h
-	gcc $(CFLAGS) -c graph.c -o $@
+list.o:$(SRCDIR)list.c $(INCDIR)list.h  $(INCDIR)sortedList.h $(SRCDIR)sortedList.c
+	gcc $(CFLAGS) -c $(SRCDIR)list.c -o $@
+
+graph.o: $(SRCDIR)graph.c $(INCDIR)graph.h
+	gcc $(CFLAGS) -c $(SRCDIR)graph.c -o $@
+
+heap.o: $(SRCDIR)heap.c $(INCDIR)heap.h
+	gcc $(CFLAGS) -c $< -o $@
 
 $(LIBDIR):
 	mkdir -p $(LIBDIR)
@@ -51,7 +57,7 @@ clean:
 	rm -f *.o *.d
 
 fclean:
-	rm -f *.o *.d $(TARGET) 
+	rm -f *.o *.d $(TARGET) $(LIBDIR)libHelper.a
 
 # merges .d files into dependency graph
 -include *.d
