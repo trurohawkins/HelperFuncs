@@ -31,7 +31,7 @@ prod: $(TARGET)
 $(TARGET): $(LIBDIR)libHelper.a main.o include/helper.h 
 	gcc main.o -o $@ $(LDFLAGS) $(LIBDIR)libHelper.a -lm
 
-$(LIBDIR)libHelper.a: helpFuncs.o binaryWriter.o list.o graph.o heap.o | $(LIBDIR)
+$(LIBDIR)libHelper.a: helpFuncs.o binaryWriter.o list.o graph.o heap.o bitset.o | $(LIBDIR)
 	ar rs $@ $^
 
 helpFuncs.o: $(SRCDIR)helpFuncs.c $(INCDIR)helpFuncs.h
@@ -47,6 +47,9 @@ graph.o: $(SRCDIR)graph.c $(INCDIR)graph.h
 	gcc $(CFLAGS) -c $(SRCDIR)graph.c -o $@
 
 heap.o: $(SRCDIR)heap.c $(INCDIR)heap.h
+	gcc $(CFLAGS) -c $< -o $@
+
+bitset.o: $(SRCDIR)bitset.c $(INCDIR)bitset.h
 	gcc $(CFLAGS) -c $< -o $@
 
 $(LIBDIR):

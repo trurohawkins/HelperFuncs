@@ -3,6 +3,21 @@
 #define LEN 7
 
 int main() {
+	BitSet bs;
+	bitsetInit(&bs, 16);
+	bitsetSetUInt64(&bs, 0b1011010010110100);
+	printf("here is the first bit %i\n", bitsetGet(&bs, 0));
+	bitsetSet(&bs, 0);
+	printf("now i changed it to %i\n", bitsetGet(&bs, 0));
+	for (int i = 0; i < 16; i++) {
+		if (bitsetGet(&bs, i)) {
+			printf("foop\n");
+		} else {
+			printf("doop\n");
+		}
+	}
+	bitsetDestroy(&bs);
+	/*
 	Heap minHeap;
 	if (!initMinHeap(&minHeap, sizeof(int), 8)) {
 		printf("failed to initalize heap\n");
@@ -35,5 +50,6 @@ int main() {
 	}
 
 	heapDestroy(&minHeap);
+	*/
 	return 0;
 }

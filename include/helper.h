@@ -7,3 +7,4 @@
 #include "sortedList.h"
 #include "graph.h"
 #include "heap.h"
+#include "bitset.h"
