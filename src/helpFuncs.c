@@ -348,6 +348,14 @@ uint64_t nowUS() {
 	return (uint64_t)ts.tv_sec * 1000000ULL + (uint64_t)ts.tv_nsec / 1000ULL;
 }
 
+void debugWrite(char *message) {
+	FILE *fptr;
+	fptr = fopen("debug.log", "a");
+	fprintf(fptr, message);
+	fclose(fptr);
+}
+
+
 
 void testFunc() {
 	printf("caca poo poo poo\n");
